@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasOne} from '@loopback/repository';
+import {Factura} from './factura.model';
 
 @model()
 export class Venta extends Entity {
@@ -15,6 +16,26 @@ export class Venta extends Entity {
   })
   matricula: string;
 
+  @property({
+    type: 'number',
+    required: true,
+  })
+  id_cliente: number;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  id_vehiculo: number;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  id_vendedor: number;
+
+  @hasOne(() => Factura, {keyTo: 'id_venta'})
+  factura: Factura;
 
   constructor(data?: Partial<Venta>) {
     super(data);
